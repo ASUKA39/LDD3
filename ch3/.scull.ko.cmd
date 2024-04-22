@@ -1,1 +1,0 @@
-cmd_/home/asuka/ldd/ch3/scull.ko := ld -r  -m elf_x86_64 -z noexecstack   --build-id=sha1  -T scripts/module.lds -o /home/asuka/ldd/ch3/scull.ko /home/asuka/ldd/ch3/scull.o /home/asuka/ldd/ch3/scull.mod.o;  true

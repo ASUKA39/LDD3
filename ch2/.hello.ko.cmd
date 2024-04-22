@@ -1,1 +1,0 @@
-cmd_/home/asuka/ldd/ch2/hello.ko := ld -r  -m elf_x86_64 -z noexecstack   --build-id=sha1  -T scripts/module.lds -o /home/asuka/ldd/ch2/hello.ko /home/asuka/ldd/ch2/hello.o /home/asuka/ldd/ch2/hello.mod.o;  true
