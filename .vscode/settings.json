@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "init.h": "c",
+        "module.h": "c",
+        "compiler.h": "c",
+        "types.h": "c",
+        "list.h": "c",
+        "tracepoint-defs.h": "c",
+        "compiler_types.h": "c",
+        "kernel.h": "c"
+    }
+}

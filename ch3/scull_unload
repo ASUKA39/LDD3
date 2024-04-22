@@ -1,0 +1,13 @@
+#!/bin/bash
+module="scull"
+device="scull"
+
+rmmod $module $* || exit 1  # 删除模块
+
+# 删除设备文件
+rm -f /dev/${device} /dev/${device}[0-3] 
+rm -f /dev/${device}priv
+rm -f /dev/${device}pipe /dev/${device}pipe[0-3]
+rm -f /dev/${device}single
+rm -f /dev/${device}uid
+rm -f /dev/${device}wuid

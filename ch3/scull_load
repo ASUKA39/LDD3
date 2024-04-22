@@ -1,0 +1,25 @@
+#!/bin/bash
+module="scull"
+device="scull"
+mode="664"
+
+/sbin/insmod ./$module.ko $* || exit 1  # 加载模块
+
+rm -f /dev/${device}[0-3]   # 删除设备文件，以防止重复创建
+
+major=$(awk "\$2==\"$module\" {print \$1}" /proc/devices)     # 获取主设备号
+
+# 创建设备文件，设备文件用于用户空间程序与内核模块通信
+mknod /dev/${device}0 c $major 0    # 创建设备文件，主设备号为$major，次设备号分别为0、1、2、3
+mknod /dev/${device}1 c $major 1
+mknod /dev/${device}2 c $major 2
+mknod /dev/${device}3 c $major 3
+
+# staff组一般用于存放非root但需要一些root权限的用户
+# wheel组用于存放有权限su到root的用户，不过不是所有发行版都有wheel组，所以这里需要判断
+group="staff"
+grep -q '^staff:' /etc/group || group="wheel"  # 判断是否存在staff组，如果不存在，则使用wheel组
+
+# 脚本以root权限运行，默认设备文件的所有者为root，其他用户无法写入设备文件，所以需要修改设备文件的所有者、组和权限
+chgrp $group /dev/${device}[0-3]    # 修改设备文件的组到staff或wheel
+chmod $mode /dev/${device}[0-3]     # 修改设备文件的权限为664，即rw-rw-r--
